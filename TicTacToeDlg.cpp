@@ -65,6 +65,8 @@ BEGIN_MESSAGE_MAP(CTicTacToeDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -100,6 +102,7 @@ BOOL CTicTacToeDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -144,6 +147,8 @@ void CTicTacToeDlg::OnPaint()
 	{
 		CDialogEx::OnPaint();
 	}
+
+
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
@@ -153,3 +158,21 @@ HCURSOR CTicTacToeDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CTicTacToeDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default	
+}
+
+
+void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default	
+}
+
+
+void CTicTacToeDlg::DrawBoard(CDC* pDC)
+{
+	// TODO: Add your implementation code here.
+}
