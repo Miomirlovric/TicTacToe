@@ -12,7 +12,7 @@ public:
 	CTicTacToeDlg(CWnd* pParent = nullptr);	// standard constructor
 	static const CRect MySquares[16];
 	int position[16];
-	int m_nNextChar;
+	int nextPlayer=1;
 	// Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TICTACTOE_DIALOG };
@@ -40,4 +40,8 @@ protected:
 public:
 	void SetXOinGrid(CPoint point, int value);
 	void DrawXO(CDC* pDC);
+	int CheckForWinner();
+	void NewGame();
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
 };
