@@ -20,12 +20,12 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// Dialog Data
+	// Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 // Implementation
@@ -53,6 +53,7 @@ END_MESSAGE_MAP()
 CTicTacToeDlg::CTicTacToeDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TICTACTOE_DIALOG, pParent)
 {
+	::ZeroMemory(position, 16 * sizeof(int));
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -104,6 +105,7 @@ BOOL CTicTacToeDlg::OnInitDialog()
 	// TODO: Add extra initialization here
 
 
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -126,6 +128,7 @@ void CTicTacToeDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CTicTacToeDlg::OnPaint()
 {
+	CPaintDC dc(this);
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // device context for painting
@@ -146,6 +149,8 @@ void CTicTacToeDlg::OnPaint()
 	else
 	{
 		CDialogEx::OnPaint();
+		DrawBoard(&dc);
+		DrawXO(&dc);
 	}
 
 
@@ -159,20 +164,96 @@ HCURSOR CTicTacToeDlg::OnQueryDragIcon()
 }
 
 
+const CRect CTicTacToeDlg::MySquares[16] = {
+	CRect(10, 10,110,110),
+	CRect(110, 10,210,110),
+	CRect(210, 10,310,110),
+	CRect(310,10,410,110),
+
+	CRect(10,110,110,210),
+	CRect(110,110,210,210),
+	CRect(210,110,310,210),
+	CRect(310,110,410,210),
+
+	CRect(10,210,110,310),
+	CRect(110,210,210,310),
+	CRect(210,210,310,310),
+	CRect(310,210,410,310),
+
+	CRect(10,310,110,410),
+	CRect(110,310,210,410),
+	CRect(210,310,310,410),
+	CRect(310,310,410,410)
+
+};
 
 void CTicTacToeDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default	
+	SetXOinGrid(point, 1);
+	this->Invalidate();
+
 }
 
 
 void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default	
+	SetXOinGrid(point, 2);
+	this->Invalidate();
 }
 
 
 void CTicTacToeDlg::DrawBoard(CDC* pDC)
 {
 	// TODO: Add your implementation code here.
+	CPen pen(PS_SOLID, 5, RGB(0, 0, 0));
+	pDC->SelectObject(&pen);
+
+	pDC->MoveTo(110, 10);
+	pDC->LineTo(110, 410);
+	pDC->MoveTo(210, 10);
+	pDC->LineTo(210, 410);
+	pDC->MoveTo(310, 10);
+	pDC->LineTo(310, 410);
+
+	pDC->MoveTo(10, 110);
+	pDC->LineTo(410, 110);
+	pDC->MoveTo(10, 210);
+	pDC->LineTo(410, 210);
+	pDC->MoveTo(10, 310);
+	pDC->LineTo(410, 310);
+}
+
+
+void CTicTacToeDlg::SetXOinGrid(CPoint point, int value)
+{
+	// TODO: Add your implementation code here.
+	for (int i = 0; i < 16; i++) {
+		if (MySquares[i].left<point.x && MySquares[i].right>point.x && MySquares[i].top<point.y && MySquares[i].bottom>point.y && position[i] == 0) {
+			position[i] = value;
+			MessageBox(MB_OK);
+		}
+	}
+}
+
+
+void CTicTacToeDlg::DrawXO(CDC* pDC)
+{
+	// TODO: Add your implementation code here.
+	for (int i = 0; i < 16; i++) {
+		if (position[i] == 2) {
+			CRect rect = MySquares[i];
+			rect.DeflateRect(16, 16);
+			pDC->Ellipse(rect);
+		}
+		if (position[i] == 1) {
+			CRect rect = MySquares[i];
+			rect.DeflateRect(16, 16);
+			pDC->MoveTo(rect.left, rect.top);
+			pDC->LineTo(rect.right, rect.bottom);
+			pDC->MoveTo(rect.right, rect.top);
+			pDC->LineTo(rect.left, rect.bottom);
+		}
+	}
 }

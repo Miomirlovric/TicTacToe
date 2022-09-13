@@ -1,33 +1,24 @@
-
 // TicTacToeDlg.h : header file
 //
 
 #pragma once
 
-struct MySquare {
-	CRect Rect;
-	int Player = 0;
-	void SetRect(int l, int t, int r, int b) {
-		Rect.left = l;
-		Rect.top = t;
-		Rect.right = r;
-		Rect.bottom = b;
-	}
-};
 
 // CTicTacToeDlg dialog
 class CTicTacToeDlg : public CDialogEx
 {
-// Construction
+	// Construction
 public:
 	CTicTacToeDlg(CWnd* pParent = nullptr);	// standard constructor
-	MySquare SquareGrid[4][4];
-// Dialog Data
+	static const CRect MySquares[16];
+	int position[16];
+	int m_nNextChar;
+	// Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TICTACTOE_DIALOG };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
 
@@ -46,4 +37,7 @@ public:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 protected:
 	void DrawBoard(CDC* pDC);
+public:
+	void SetXOinGrid(CPoint point, int value);
+	void DrawXO(CDC* pDC);
 };
