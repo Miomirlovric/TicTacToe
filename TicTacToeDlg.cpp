@@ -223,20 +223,14 @@ void CTicTacToeDlg::DrawBoard(CDC* pDC)
 {
 	CPen pen(PS_SOLID, 5, RGB(0, 0, 0));
 	pDC->SelectObject(&pen);
-
-	pDC->MoveTo(110, 10);
-	pDC->LineTo(110, 410);
-	pDC->MoveTo(210, 10);
-	pDC->LineTo(210, 410);
-	pDC->MoveTo(310, 10);
-	pDC->LineTo(310, 410);
-
-	pDC->MoveTo(10, 110);
-	pDC->LineTo(410, 110);
-	pDC->MoveTo(10, 210);
-	pDC->LineTo(410, 210);
-	pDC->MoveTo(10, 310);
-	pDC->LineTo(410, 310);
+	int a = 100;
+	for(int i=0;i<3;i++){
+		pDC->MoveTo(10+a, 10);		
+		pDC->LineTo(10+a, 410);
+		pDC->MoveTo(10, 10+a);
+		pDC->LineTo(410, 10+a);
+		a += 100;
+	}
 }
 
 
