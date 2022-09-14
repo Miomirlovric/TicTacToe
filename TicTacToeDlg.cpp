@@ -195,13 +195,14 @@ void CTicTacToeDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if (nextPlayer == 1) {
 		SetXOinGrid(point, 1);
+		this->Invalidate();
+		if (CheckForWinner() == 1) {
+			MessageBox(s, c);
+			NewGame();
+		}
+		nextPlayer = 2;
 	}
-	nextPlayer = 2;
-	this->Invalidate();
-	if (CheckForWinner() == 1) {		
-		MessageBox(s,c);
-		NewGame();
-	}
+	
 }
 
 
@@ -209,13 +210,15 @@ void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	if (nextPlayer == 2) {
 		SetXOinGrid(point, 2);
+		this->Invalidate();
+		if (CheckForWinner() == 2) {
+			MessageBox(b, c);
+			NewGame();
+		}
+		nextPlayer = 1;
 	}
-	nextPlayer = 1;
-	this->Invalidate();
-	if (CheckForWinner() == 2) {
-		MessageBox(b,c);
-		NewGame();
-	}
+		
+	
 }
 
 
