@@ -104,8 +104,10 @@ BOOL CTicTacToeDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
 
+	s.LoadString(IDS_STRING102);
+	b.LoadString(IDS_STRING103);
+	c.LoadString(IDS_STRING104);
 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -191,32 +193,27 @@ const CRect CTicTacToeDlg::MySquares[16] = {
 
 void CTicTacToeDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default	
 	if (nextPlayer == 1) {
 		SetXOinGrid(point, 1);
 	}
 	nextPlayer = 2;
 	this->Invalidate();
-	CheckForWinner();
-	if (CheckForWinner() == 1) {
-		MessageBox(_T("Player X wins!"), _T("Game Over"),MB_OK);
+	if (CheckForWinner() == 1) {		
+		MessageBox(s,c);
 		NewGame();
 	}
-	
-
 }
 
 
 void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default	
 	if (nextPlayer == 2) {
 		SetXOinGrid(point, 2);
 	}
 	nextPlayer = 1;
 	this->Invalidate();
 	if (CheckForWinner() == 2) {
-		MessageBox(_T("Player O wins!"), _T("Game Over"), MB_OK);
+		MessageBox(b,c);
 		NewGame();
 	}
 }
@@ -224,7 +221,6 @@ void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CTicTacToeDlg::DrawBoard(CDC* pDC)
 {
-	// TODO: Add your implementation code here.
 	CPen pen(PS_SOLID, 5, RGB(0, 0, 0));
 	pDC->SelectObject(&pen);
 
@@ -246,7 +242,6 @@ void CTicTacToeDlg::DrawBoard(CDC* pDC)
 
 void CTicTacToeDlg::SetXOinGrid(CPoint point, int value)
 {
-	// TODO: Add your implementation code here.
 	for (int i = 0; i < 16; i++) {
 		if (MySquares[i].left<point.x && 
 			MySquares[i].right>point.x && 
@@ -260,7 +255,6 @@ void CTicTacToeDlg::SetXOinGrid(CPoint point, int value)
 
 void CTicTacToeDlg::DrawXO(CDC* pDC)
 {
-	// TODO: Add your implementation code here.
 	for (int i = 0; i < 16; i++) {
 		if (position[i] == 2) {
 			CRect rect = MySquares[i];
@@ -280,7 +274,6 @@ void CTicTacToeDlg::DrawXO(CDC* pDC)
 
 int CTicTacToeDlg::CheckForWinner()
 {
-	// TODO: Add your implementation code here.
 	static int pattern[24][3] = {
 		0, 1, 2,
 		1, 2, 3,
@@ -324,7 +317,6 @@ int CTicTacToeDlg::CheckForWinner()
 
 void CTicTacToeDlg::NewGame()
 {
-	// TODO: Add your implementation code here.
 	::ZeroMemory(position, 16 * sizeof(int));
 	this->Invalidate();
 	nextPlayer = 1;
@@ -333,13 +325,11 @@ void CTicTacToeDlg::NewGame()
 
 void CTicTacToeDlg::OnBnClickedButton1()
 {
-	// TODO: Add your control notification handler code here
 	NewGame();	
 }
 
 
 void CTicTacToeDlg::OnBnClickedButton2()
 {
-	// TODO: Add your control notification handler code here
 	PostMessage(WM_CLOSE);
 }

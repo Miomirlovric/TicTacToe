@@ -10,9 +10,7 @@ class CTicTacToeDlg : public CDialogEx
 	// Construction
 public:
 	CTicTacToeDlg(CWnd* pParent = nullptr);	// standard constructor
-	static const CRect MySquares[16];
-	int position[16];
-	int nextPlayer=1;
+
 	// Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TICTACTOE_DIALOG };
@@ -20,7 +18,10 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-
+	static const CRect MySquares[16];
+	int position[16];
+	int nextPlayer = 1;
+	CString s, b, c;
 
 // Implementation
 protected:
