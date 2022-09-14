@@ -7,8 +7,11 @@
 #define IDS_ABOUTBOX                    101
 #define IDD_TICTACTOE_DIALOG            102
 #define IDS_STRING102                   102
+#define IDS_XWIN                        102
 #define IDS_STRING103                   103
+#define IDS_OWIN                        103
 #define IDS_STRING104                   104
+#define IDS_GAMEOVER                    104
 #define IDR_MAINFRAME                   128
 #define IDC_BUTTON1                     1000
 #define IDC_BUTTON2                     1001

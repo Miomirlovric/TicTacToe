@@ -105,9 +105,9 @@ BOOL CTicTacToeDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 
-	s.LoadString(IDS_STRING102);
-	b.LoadString(IDS_STRING103);
-	c.LoadString(IDS_STRING104);
+	xwin.LoadString(IDS_XWIN);
+	owin.LoadString(IDS_OWIN);
+	gameover.LoadString(IDS_GAMEOVER);
 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -195,14 +195,13 @@ void CTicTacToeDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if (nextPlayer == 1) {
 		SetXOinGrid(point, 1);
+		nextPlayer = 2;
 		this->Invalidate();
 		if (CheckForWinner() == 1) {
-			MessageBox(s, c);
+			MessageBox(xwin, gameover);
 			NewGame();
-		}
-		nextPlayer = 2;
+		}		
 	}
-	
 }
 
 
@@ -210,15 +209,13 @@ void CTicTacToeDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	if (nextPlayer == 2) {
 		SetXOinGrid(point, 2);
+		nextPlayer = 1;
 		this->Invalidate();
 		if (CheckForWinner() == 2) {
-			MessageBox(b, c);
+			MessageBox(owin, gameover);
 			NewGame();
 		}
-		nextPlayer = 1;
 	}
-		
-	
 }
 
 

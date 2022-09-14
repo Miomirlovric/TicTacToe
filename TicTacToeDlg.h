@@ -21,7 +21,7 @@ protected:
 	static const CRect MySquares[16];
 	int position[16];
 	int nextPlayer = 1;
-	CString s, b, c;
+	CString xwin, owin, gameover;
 
 // Implementation
 protected:
